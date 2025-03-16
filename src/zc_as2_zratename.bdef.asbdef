@@ -1,0 +1,26 @@
+projection;
+//strict ( 2 ); //Uncomment this line in order to enable strict mode 2. The strict mode has two variants (strict(1), strict(2)) and is prerequisite to be future proof regarding syntax and to be able to release your BO.
+use draft;
+
+define behavior for ZC_AS2_ZRATENAME alias RateName
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Activate;
+  use action Edit;
+  use action Resume;
+  use action Discard;
+  use action Prepare;
+
+  use association _RateData { create; with draft; }
+}
+
+define behavior for ZC_AS2_ZRATEDATA alias RateData
+{
+  use update;
+  use delete;
+
+  use association _RateName { with draft; }
+}

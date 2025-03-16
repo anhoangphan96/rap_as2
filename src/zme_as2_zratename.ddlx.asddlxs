@@ -1,0 +1,56 @@
+@Metadata.layer: #CUSTOMER
+@UI.headerInfo : {
+        typeName: 'Interest Rate',
+        typeNamePlural: 'Interest Rates',
+        title.value: 'Zrateid',
+        description.value: 'Zratename'
+    }
+annotate entity ZC_AS2_ZRATENAME
+    with 
+
+{   @EndUserText.label: 'ID of Rate'
+    @UI.lineItem: [{ position: 10 }]
+    @UI.identification: [{ position: 10  }]
+    @Consumption.filter.hidden: true
+    @UI.facet: [{ 
+                   type : #IDENTIFICATION_REFERENCE,
+                   label : 'Rate Name',
+                   position: 10,
+                   purpose: #STANDARD },
+                { 
+                   type : #LINEITEM_REFERENCE,
+                   purpose: #STANDARD,
+                   label: 'Rate Data',
+                   position: 20,
+                   targetElement: '_RateData'}   
+                   ]
+    Zrateid;
+
+    
+    @EndUserText.label: 'ID of Rate'
+    @UI.lineItem: [{ hidden: true }]
+    @UI.selectionField: [{ position : 10 }]
+    @Consumption.valueHelpDefinition: [{ entity : { name: 'ZI_zrateid_VH' , element: 'zrateid' } }]
+    Zrateid2;
+    
+    @EndUserText.label: 'Name of Rate'
+    @UI.lineItem: [{ position: 20 }]
+    @UI.identification: [{ position: 20 }]
+    Zratename;
+    
+    @EndUserText.label: 'Abbereviation name of Rate'
+    @UI.lineItem: [{ position: 30 }]
+    @UI.identification: [{ position: 30 }]
+    Zabbreviation;
+    
+    @EndUserText.label: 'Reexamince cycle'
+    @UI.lineItem: [{ position: 40 }]
+    @UI.identification: [{ position: 40 }]
+    Zcycle;
+    
+    @EndUserText.label: 'Spread zone'
+    @UI.lineItem: [{ position: 50 }]
+    @UI.identification: [{ position: 50 }]
+    Zzone;
+    
+}

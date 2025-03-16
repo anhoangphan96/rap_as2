@@ -1,0 +1,5 @@
+@EndUserText.label: 'SD for ZC_RAP_AS1_COMCODE'
+define service ZSD_AS2_ZRATENAME_SRV {
+  expose ZC_AS2_ZRATENAME as RateName;
+  expose ZC_AS2_ZRATEDATA as RateData;
+}

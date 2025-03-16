@@ -1,0 +1,84 @@
+managed implementation in class zbp_i_as2_zratename unique;
+with draft;
+//strict ( 2 );
+
+define behavior for ZI_AS2_ZRATENAME alias RateName
+//persistent table ztratename
+with unmanaged save with full data
+draft table ztratename_d
+lock master
+total etag LastChangeAt
+//authorization master ( instance )
+etag master LastChangeAt
+{
+  create;
+  update;
+  delete;
+
+  draft action Activate;
+  draft action Edit;
+  draft action Resume;
+  draft action Discard;
+  draft determine action Prepare;
+
+  field ( readonly, numbering : managed ) ID;
+
+  field ( features : instance  ) Zrateid;
+
+  validation checkRateID on save { create; field Zrateid; }
+  validation checkCycleZone on save { field Zcycle , Zzone;  }
+
+  association _RateData { create; with draft; }
+
+  mapping for ztratename
+    {
+      id           = zzid;
+      Zrateid      = zrateid;
+      Zratename    = zratename;
+      Zabbreviation = zabbreviation;
+      Zcycle        = zcycle;
+      Zzone         = zzone;
+      Erdat         = erdat;
+      Ernam         = ernam;
+      Aedat         = aedat;
+      Aenam         = aenam;
+      LastChangeAt = last_change_at;
+    }
+}
+
+define behavior for ZI_AS2_ZRATEDATA alias RateData
+//persistent table ztratedata
+with unmanaged save with full data
+draft table ztratedata_d
+lock dependent by _RateName
+//authorization dependent by _RateName
+etag master LastChangeAt
+{
+  update;
+  delete;
+  field ( readonly, numbering : managed ) ID;
+  field ( readonly ) ParentID;
+  association _RateName { with draft; }
+
+  field ( features : instance  ) Bukrs, ZeffectDate;
+
+  field ( mandatory ) Bukrs, ZeffectDate;
+
+  validation checkBurks on save { create; field Bukrs; }
+  validation checkRateData on save { create; }
+
+  mapping for ztratedata
+    {
+      ParentID     = zzparentid;
+      id           = zzid;
+      Zrateid      = zrateid;
+      Bukrs        = bukrs;
+      ZeffectDate  = zeffect_date;
+      Rate         = rate;
+      Erdat         = erdat;
+      Ernam         = ernam;
+      Aedat         = aedat;
+      Aenam         = aenam;
+      LastChangeAt = last_change_at;
+    }
+}

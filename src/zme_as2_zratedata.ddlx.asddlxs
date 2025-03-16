@@ -1,0 +1,40 @@
+@Metadata.layer: #CUSTOMER
+@UI.headerInfo : {
+        typeName: 'Interest Rate Data',
+        typeNamePlural: 'Interest Rate Data',
+        title.value: 'HeaderText'
+    }
+annotate entity ZC_AS2_ZRATEDATA with
+{
+  @EndUserText.label: 'ID of Rate'
+  @UI.lineItem: [{ position: 10 }]
+  @UI.selectionField: [{ position : 10 }]
+  @UI.identification: [{ position: 10 }]
+  @UI.hidden: true
+  @UI.facet: [{
+                   type : #IDENTIFICATION_REFERENCE,
+                   label : 'Rate Data',
+                   position: 10,
+                   purpose: #STANDARD }]
+  Zrateid;
+
+  @EndUserText.label: 'Company Code'
+  @UI.lineItem: [{ position: 20 }]
+  @UI.identification: [{ position: 20 }]
+  @Consumption.valueHelpDefinition: [{ entity : { name: 'ZI_BUKRS_VH' , element: 'Bukrs' }, distinctValues: true, useForValidation: true }]
+  Bukrs;
+
+  @EndUserText.label: 'Effective Date'
+  @UI.lineItem: [{ position: 30 }]
+  @UI.identification: [{ position: 30 }]
+  ZeffectDate;
+
+  @EndUserText.label: 'Rate'
+  @UI.lineItem: [{ position: 40 }]
+  @UI.identification: [{ position: 40 }]
+  Rate;
+  
+  @UI.hidden: true
+  HeaderText;
+
+}
